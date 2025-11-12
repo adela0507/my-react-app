@@ -1,8 +1,17 @@
 import React from "react";
 import "./CheckoutProduct.css";
 import Subtotal from "./Subtotal";
+import { useStateValue } from "./StateProvider";
 
 function CheckoutProduct({id,title,price,rating,image}){
+    const [{basket},dispatch]=useStateValue();
+
+    const removeFromBasket=()=>{
+        dispatch({
+            type:"REMOVE_FROM_BASKET",
+            id:id,
+        })
+    }
     return(
         <div className="checkoutProduct">
             <img src={image} alt="" className="checkoutProduct_image" />
@@ -17,7 +26,7 @@ function CheckoutProduct({id,title,price,rating,image}){
                         .map((_, i)=>(
                         <p>💖</p>
                         )) }</div>
-                <button className="checkoutRemove">Remove from basket</button>
+                <button className="checkoutRemove" onClick={removeFromBasket}>Remove from basket</button>
 
             </div>
         </div>
